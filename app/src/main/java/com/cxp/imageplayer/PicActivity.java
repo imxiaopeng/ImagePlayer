@@ -3,7 +3,6 @@ package com.cxp.imageplayer;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,10 +18,6 @@ import com.liyi.viewer.ImageViewer;
 import com.liyi.viewer.data.ViewData;
 
 import java.util.ArrayList;
-
-
-//import com.bumptech.glide.request.RequestOptions;
-
 
 /**
  * Created by albertlii on 2017/9/20.
@@ -49,24 +44,25 @@ public class PicActivity extends AppCompatActivity {
 
     private void initUI() {
         autoGridView = (AutoGridView) findViewById(R.id.autogridview);
-        generateData();
-
+        generateData();//构造数据(网络请求)
         mViewDatas = new ArrayList<>();
         mOptions = new RequestOptions();
         mOptions.placeholder(R.drawable.img_viewer_placeholder).error(R.drawable.img_viewer_error);
         imageViewer = ImageViewer.newInstance()
+                //设置索引( 1/2 )位置 底部 且水平居中（tv_index.setText((mBeginIndex + 1) + "/" + mImageSrcList.size())）
                 .indexPos(Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL)
+                //设置数据源 当然也可以将此步骤与设置适配器放入网络请求结果中
                 .imageData(mImageDatas);
         adapter = new MyAdapter();
         autoGridView.setAdapter(adapter);
     }
 
     private void addListener() {
+        //条目点击 进入大图浏览
         autoGridView.setOnItemClickListener(new AutoGridView.OnItemClickListener() {
             @Override
             public void onItemClick(int i, View view) {
                 mViewDatas.clear();
-                View child = autoGridView.getChildAt(i);
                 for (int j = 0; j < autoGridView.getChildCount(); j++) {
                     int[] location = new int[2];
                     // 获取在整个屏幕内的绝对坐标
@@ -78,7 +74,6 @@ public class PicActivity extends AppCompatActivity {
                     viewData.height = autoGridView.getChildAt(j).getMeasuredHeight();
                     mViewDatas.add(viewData);
                 }
-                Log.e("message",child+","+view);
                 imageViewer.beginIndex(i)
                         .viewData(mViewDatas)
                         .show(PicActivity.this);
@@ -112,7 +107,12 @@ public class PicActivity extends AppCompatActivity {
         mImageDatas.add(url9);
         mImageDatas.add(url10);
         mImageDatas.add(url11);
-        autoGridView.setGridRow(mImageDatas.size()%3==0?mImageDatas.size()/3:mImageDatas.size()/3+1);
+
+        /*！！！一下设置一定要在设置适配器之前调用！！！*/
+        //设置行数
+        autoGridView.setGridRow(mImageDatas.size() % 2 == 0 ? mImageDatas.size() / 2 : mImageDatas.size() / 2 + 1);
+        //设置列数
+        autoGridView.setGridColumn(2);
     }
 
     private class MyAdapter extends BaseGridAdapter {

@@ -4,12 +4,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
     <com.liyi.autogrid.AutoGridView
         android:id="@+id/autogridview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:grid_column="3"
          />
+</ScrollView>
     <!--app:grid_row="4"-->
 </LinearLayout>
