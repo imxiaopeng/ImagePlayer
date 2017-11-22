@@ -52,7 +52,7 @@ public class ImagePreviewActivity extends Activity implements IImagePreview {
     private final String TAG = this.getClass().getSimpleName();
 
     private View v_bg;
-    private ViewPager viewpager;
+    private ViewPagerr viewpager;
     private ImageView iv_show;
     private TextView tv_index;
 
@@ -84,7 +84,7 @@ public class ImagePreviewActivity extends Activity implements IImagePreview {
     @Override
     public void initUI() {
         v_bg = findViewById(R.id.v_preview_bg);
-        viewpager = (ViewPager) findViewById(R.id.vp_preview);
+        viewpager = (ViewPagerr) findViewById(R.id.vp_preview);
         iv_show = (ImageView) findViewById(R.id.iv_preview_show);
         tv_index = (TextView) findViewById(R.id.tv_preview_index);
 

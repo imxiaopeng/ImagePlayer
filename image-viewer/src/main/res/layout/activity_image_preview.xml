@@ -9,7 +9,7 @@
         android:layout_height="match_parent"
         android:background="#000000" />
 
-    <android.support.v4.view.ViewPager
+    <com.liyi.viewer.view.ViewPagerr
         android:id="@+id/vp_preview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
